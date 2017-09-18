@@ -6,15 +6,18 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByCustomerId", query = "SELECT c FROM Customer c WHERE c.customerId = :customerId"),
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
-public class Customer implements Serializable {
+public class Customer implements Serializable, Entity {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,7 +58,9 @@ public class Customer implements Serializable {
     private Collection<AvailableProducts> availableProductsCollection;
     @OneToMany(mappedBy = "customerId")
     private Collection<Order> order1Collection;
-
+    //@PersistenceContext
+    public EntityManager em;
+    
     public Customer() {
     }
 
@@ -110,7 +115,16 @@ public class Customer implements Serializable {
     public void setOrder1Collection(Collection<Order> order1Collection) {
         this.order1Collection = order1Collection;
     }
-
+    /*
+    public Customer getCustomerFromId(Integer customerId){
+        System.out.println("B " + customerId);
+        System.out.println(em.createNamedQuery("findByCustomerId")
+        .setParameter("customerId", 1)
+        .getResult());
+        //System.out.println("AA " + customer.hashCode());
+        return null;
+    }
+*/
     @Override
     public int hashCode() {
         int hash = 0;
@@ -134,6 +148,16 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "DataAccess.Entity.Customer[ customerId=" + customerId + " ]";
+    }
+
+    @Override
+    public String name() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
