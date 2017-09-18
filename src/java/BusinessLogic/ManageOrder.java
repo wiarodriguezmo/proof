@@ -48,17 +48,24 @@ public class ManageOrder extends Application {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public void createOrder(String data)throws Exception {        
-        JSONArray recoData = (JSONArray)new JSONParser().parse(data);
-        JSONObject json = (JSONObject) recoData.get(1);
-        System.out.println(json.get("name"));
-        //System.out.println("name=" + recoData.get("name"));
+        //JSONArray recoData = (JSONArray)new JSONParser().parse(data);
+        //JSONObject json = (JSONObject) recoData.get(1);
+        
+        JSONObject recoData = (JSONObject)new JSONParser().parse(data);
+        
+        JSONArray A = (JSONArray)recoData.get("selectedProducts");
+        
+        JSONObject B = (JSONObject) A.get(1);
+        
+        
+        //System.out.println(data, recoData.get("id"));
+        System.out.println("name=" + B.get("name"));
         //System.out.println("width=" + recoData.get("width"));
         
         Order order = new Order(1);
         order.setDeliveryAddress(2);
         Customer customer = new Customer(1, "will", "yp@as.co");
         order.setCustomerId(customer);
-        System.out.println("Segundo");
         //order.setCustomerId();
         
         //OrderDAO orderDAO = new OrderDAO();

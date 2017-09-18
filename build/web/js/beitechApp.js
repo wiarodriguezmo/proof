@@ -18,7 +18,11 @@ app.controller('beitechCtrl', function ($http, $q) {
     vm.selectedProducts = [{"productId":"4","name":"Product D"},{"productId":"3","name":"Product C"}];
     
     vm.setProducts = function () {
-    var data= JSON.stringify(vm.selectedProducts);
+        var toSend = {
+            id: vm.id,
+            selectedProducts: vm.selectedProducts
+        };
+    var data= JSON.stringify(toSend);
     var d = $q.defer();
     $http({
         method: "POST",
