@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="beitech">
+    <head>
+        <title>Test manual --> create a order</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- angular & ui-select -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="http://angular-ui.github.io/ui-select/dist/select.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+        
+        <!-- app -->
+        <script type="text/javascript" src="js/beitechApp.js"></script>
+        
+      
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://angular-ui.github.io/ui-select/dist/select.css">
+        
+        <!-- themes -->
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+    
+        <style>
+            body {
+                padding: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Crear una orden</h1>
+        
+        <form ng-controller="beitechCtrl as ctrl">
+            Customer Id <input type="text" ng-model="ctrl.id" name="id"/><br/>
+            <!--
+            Order Number: <input ng-model="ctrl.id" type="text" name="id"/><br/>
+            -->
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                                <label for="specialties" class="control-label">PRODUCTOS</label>
+                                 <ui-select multiple 
+                                            ng-model="ctrl.selectedProducts" 
+                                            theme="bootstrap"
+                                            close-on-select="false" 
+                                            style="width: 800px;" 
+                                            title="Choose a product" 
+                                            name="products"
+                                            remove-selected="false">
+                                <ui-select-match placeholder="Select product...">{{$item.name}}</ui-select-match>
+                                <ui-select-choices repeat="product in ctrl.products">
+                                  <div ng-bind-html="product.name | highlight: $select.search"></div>
+                                  <small>
+                                      Name: {{product.name}}
+                                  </small>
+                                </ui-select-choices>
+                              </ui-select>
+                        </div>
+                </div>
+            </div>
+            
+            <input type="submit" value="Create Order" ng-click="ctrl.setProducts()"/>
+        </form>
+    </body>
+</html>
