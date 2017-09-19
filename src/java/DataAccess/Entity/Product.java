@@ -44,6 +44,13 @@ public class Product implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
+    private String product_description;
+    @NotNull
+    @Column(name = "price")
+    private Integer price;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Collection<OrderDetail> orderDetailCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
@@ -61,6 +68,13 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    public Product(Integer productId, String name, String product_description, Integer price) {
+        this.productId = productId;
+        this.name = name;
+        this.product_description = product_description;
+        this.price = price;
+    }
+
     public Integer getProductId() {
         return productId;
     }
@@ -71,6 +85,12 @@ public class Product implements Serializable {
 
     public String getName() {
         return name;
+    }
+    public String getProductDescr() {
+        return product_description;
+    }
+    public Integer getPrice() {
+        return price;
     }
 
     public void setName(String name) {

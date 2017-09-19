@@ -47,7 +47,7 @@ public class OrderDetail implements Serializable {
     private String productDescription;
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Order order1;
+    private Orde order1;
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Product product;
@@ -93,11 +93,11 @@ public class OrderDetail implements Serializable {
         this.productDescription = productDescription;
     }
 
-    public Order getOrder1() {
+    public Orde getOrder1() {
         return order1;
     }
 
-    public void setOrder1(Order order1) {
+    public void setOrder1(Orde order1) {
         this.order1 = order1;
     }
 

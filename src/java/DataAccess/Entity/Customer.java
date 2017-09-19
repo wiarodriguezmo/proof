@@ -57,7 +57,7 @@ public class Customer implements Serializable, Entity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Collection<AvailableProducts> availableProductsCollection;
     @OneToMany(mappedBy = "customerId")
-    private Collection<Order> order1Collection;
+    private Collection<Orde> order1Collection;
     //@PersistenceContext
     public EntityManager em;
     
@@ -108,11 +108,11 @@ public class Customer implements Serializable, Entity {
     }
 
     @XmlTransient
-    public Collection<Order> getOrder1Collection() {
+    public Collection<Orde> getOrder1Collection() {
         return order1Collection;
     }
 
-    public void setOrder1Collection(Collection<Order> order1Collection) {
+    public void setOrder1Collection(Collection<Orde> order1Collection) {
         this.order1Collection = order1Collection;
     }
     /*

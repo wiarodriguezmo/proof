@@ -6,52 +6,48 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author awake
  */
 @Entity
-@Table(name = "lorder")
+@Table(name = "orde")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM lorder o"),
-    @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM lorder o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Order1.findByDeliveryAddress", query = "SELECT o FROM lorder o WHERE o.deliveryAddress = :deliveryAddress")})
-public class Order implements Serializable {
+    @NamedQuery(name = "Orde.findAll", query = "SELECT o FROM Orde o"),
+    @NamedQuery(name = "Orde.findByOrderId", query = "SELECT o FROM Orde o WHERE o.orderId = :orderId"),
+    @NamedQuery(name = "Orde.findByDeliveryAddress", query = "SELECT o FROM Orde o WHERE o.deliveryAddress = :deliveryAddress")})
+public class Orde implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_id")
     private Integer orderId;
     @Column(name = "delivery_address")
     private Integer deliveryAddress;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
-    private Collection<OrderDetail> orderDetailCollection;
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     @ManyToOne
     private Customer customerId;
-
-    public Order() {
+    public Orde() {
     }
 
-    public Order(Integer orderId) {
+    public Orde(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -71,15 +67,6 @@ public class Order implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
-    @XmlTransient
-    public Collection<OrderDetail> getOrderDetailCollection() {
-        return orderDetailCollection;
-    }
-
-    public void setOrderDetailCollection(Collection<OrderDetail> orderDetailCollection) {
-        this.orderDetailCollection = orderDetailCollection;
-    }
-
     public Customer getCustomerId() {
         return customerId;
     }
@@ -87,7 +74,7 @@ public class Order implements Serializable {
     public void setCustomerId(Customer customerId) {
         this.customerId = customerId;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -98,10 +85,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Orde)) {
             return false;
         }
-        Order other = (Order) object;
+        Orde other = (Orde) object;
         if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }
@@ -110,7 +97,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Order1[ orderId=" + orderId + " ]";
+        return "DataAccess.Entity.Orde[ orderId=" + orderId + " ]";
     }
     
 }
