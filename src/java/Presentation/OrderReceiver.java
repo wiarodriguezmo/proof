@@ -42,6 +42,7 @@ public class OrderReceiver extends Application{
         JSONObject objRequest = (JSONObject)new JSONParser().parse(data);
         JSONArray selectedProducts = (JSONArray)objRequest.get("selectedProducts");
         Integer customerId = ((Long)objRequest.get("id")).intValue();
+        Integer deliveryAddress = ((Long)objRequest.get("deliveryAddress")).intValue();
         
         ArrayList<Integer> products = new ArrayList<Integer>();  
         if (selectedProducts != null) {
@@ -52,7 +53,7 @@ public class OrderReceiver extends Application{
            } 
         }
         
-        OrderHandler orderHandler = new OrderHandler(customerId, products);
+        OrderHandler orderHandler = new OrderHandler(customerId, deliveryAddress, products);
         orderHandler.createOrder();
     }
     

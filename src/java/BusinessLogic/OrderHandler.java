@@ -21,18 +21,20 @@ import java.util.ArrayList;;
 
 public class OrderHandler  {
     Integer customerId;
+    Integer deliveryAddress;
     ArrayList<Integer> products;
 
-    public OrderHandler(Integer customerId, ArrayList<Integer> products) {
+    public OrderHandler(Integer customerId, Integer deliveryAddress, ArrayList<Integer> products) {
         this.customerId = customerId;
         this.products = products;
+        this.deliveryAddress = deliveryAddress;
     }
     
     public void createOrder()throws Exception {
         products = validProductsOnOrder();
         if(products.size()>0){
             Orde order = new Orde();
-            order.setDeliveryAddress(2);
+            order.setDeliveryAddress(deliveryAddress);
             //Customer customer = new Customer(1, "will", "yp@as.co");
             CustomerDAO customerDAO = new CustomerDAO();
             Customer customer = customerDAO.getByID(Integer.toString(customerId));

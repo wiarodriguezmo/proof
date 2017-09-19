@@ -20,7 +20,8 @@ app.controller('beitechCtrl', function ($http, $q) {
     vm.setProducts = function () {
         var toSend = {
             id: vm.id,
-            selectedProducts: vm.selectedProducts
+            selectedProducts: vm.selectedProducts,
+            deliveryAddress: vm.deliveryAddress
         };
     var data= JSON.stringify(toSend);
     var d = $q.defer();
