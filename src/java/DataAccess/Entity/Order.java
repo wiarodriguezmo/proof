@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author awake
  */
 @Entity
-@Table(name = "order")
+@Table(name = "lorder")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o"),
-    @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM Order1 o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Order1.findByDeliveryAddress", query = "SELECT o FROM Order1 o WHERE o.deliveryAddress = :deliveryAddress")})
+    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM lorder o"),
+    @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM lorder o WHERE o.orderId = :orderId"),
+    @NamedQuery(name = "Order1.findByDeliveryAddress", query = "SELECT o FROM lorder o WHERE o.deliveryAddress = :deliveryAddress")})
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

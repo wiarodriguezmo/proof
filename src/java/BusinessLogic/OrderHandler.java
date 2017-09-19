@@ -7,9 +7,11 @@ package BusinessLogic;
 
 import DataAccess.DAO.CustomerDAO;
 import DataAccess.DAO.OrderDAO;
+import DataAccess.DAO.ProductDAO;
 import DataAccess.Entity.Customer;
 import DataAccess.Entity.Order;
 import DataAccess.Entity.Product;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,46 +36,40 @@ import org.json.simple.parser.JSONParser;
  *
  * @author awake
  */
-//@ApplicationPath("webresources")
-@ApplicationPath("webresources")
-@Path("orders")
-public class ManageOrder extends Application {
+
+public class OrderHandler  {
+    Integer customerId;
+    ArrayList<Integer> products;
+
+    public OrderHandler(Integer customerId, ArrayList<Integer> products) {
+        this.customerId = customerId;
+        this.products = products;
+    }
     
-    @POST
-    @Path("create")
-    //@Consumes("application/json")
-    
-    //@Consumes({MediaType.APPLICATION_JSON})
-    
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void createOrder(String data)throws Exception {        
-        //JSONArray recoData = (JSONArray)new JSONParser().parse(data);
-        //JSONObject json = (JSONObject) recoData.get(1);
-        
-        JSONObject recoData = (JSONObject)new JSONParser().parse(data);
-        
-        JSONArray A = (JSONArray)recoData.get("selectedProducts");
-        
-        JSONObject B = (JSONObject) A.get(1);
-        
-        
-        //System.out.println(data, recoData.get("id"));
-        System.out.println("name=" + B.get("name"));
-        //System.out.println("width=" + recoData.get("width"));
+    public void createOrder()throws Exception {
+        products = validProductsOnOrder();
         
         Order order = new Order(1);
         order.setDeliveryAddress(2);
-        Customer customer = new Customer(1, "will", "yp@as.co");
-        order.setCustomerId(customer);
-        //order.setCustomerId();
-        
-        //OrderDAO orderDAO = new OrderDAO();
-        //Order orderE = orderDAO.persist(order);
-        
+        //Customer customer = new Customer(1, "will", "yp@as.co");
         CustomerDAO customerDAO = new CustomerDAO();
-        Customer prueba = customerDAO.getByID("1");
-        System.out.println(prueba.getName());
+        Customer customer = customerDAO.getByID(Integer.toString(customerId));
+        order.setCustomerId(customer);
+        
+        OrderDAO orderDAO = new OrderDAO();
+        Order orderE = orderDAO.persist(order);
+        System.out.println(orderE.toString());
+    }
+    
+    private ArrayList<Integer> validProductsOnOrder() throws Exception{
+        ArrayList<Integer> availableProducts, newProducts = new ArrayList<Integer>();
+        ProductDAO productDAO = new ProductDAO();
+        availableProducts = productDAO.getProductsAvailablePerCustomer(customerId.toString());
+        for(Integer temp : availableProducts){
+            if(products.contains(temp))
+                newProducts.add(temp);
+        }
+        return newProducts;
     }
     
     
@@ -103,10 +99,6 @@ List<Alumno> lista= consultaAlumnos.getResultList();
         return "SI";
     }
     */
-    
-    private boolean invalidProductsOnOrder(RequestObj requestObj){
-        return false;
-    }
     
     @GET
     @Path("/s")

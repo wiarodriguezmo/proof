@@ -18,7 +18,6 @@ import javax.persistence.Persistence;
  */
 public class OrderDAO {
     
-    /*
     public Order persist(Order order) {
 	EntityManager em;
 	EntityManagerFactory emf;
@@ -36,5 +35,5 @@ public class OrderDAO {
 	  return order;
 	}
     }    
-*/
+
 }

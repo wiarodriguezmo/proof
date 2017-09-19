@@ -19,26 +19,26 @@ public class CustomerDAO extends CrudDAO<Customer> {
     }
     
     public Customer getByID(String ID) throws Exception {
-		ResultSet rs = CrudDAO.query("SELECT * FROM customer WHERE customer_id =?", new String[]{ID});
-		try {
-			rs.first();
-			Customer ue = toEntity(rs);
+        ResultSet rs = CrudDAO.query("SELECT * FROM customer WHERE customer_id =?", new String[]{ID});
+        try {
+                rs.first();
+                Customer ue = toEntity(rs);
 
-			return ue;
-		} catch (SQLException e) {
-			System.out.println("TallerDAO.getByID: " + e.getMessage());
-			return new Customer();
-		}
-	}
+                return ue;
+        } catch (SQLException e) {
+                System.out.println("CustomerDAO.getByID: " + e.getMessage());
+                return new Customer();
+        }
+    }
     
     @Override
-	protected Customer toEntity(ResultSet rs) throws SQLException {
-		return new Customer(
-                                rs.getInt("customer_id"),
-                                rs.getString("name"),
-                                rs.getString("email")
-		);
-	}
+    protected Customer toEntity(ResultSet rs) throws SQLException {
+        return new Customer(
+            rs.getInt("customer_id"),
+            rs.getString("name"),
+            rs.getString("email")
+        );
+    }
 
     @Override
     protected Class getEntityClass() {

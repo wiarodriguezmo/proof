@@ -21,9 +21,9 @@ import javax.persistence.EntityManager;
  */
 public abstract class CrudDAO<E extends Entity> {
     private static final String usuario = "root";
-    private static final String contrasena = "villavo23.";
+    private static final String contrasena = "alemania10";
     //private final String url = "jdbc:mysql://localhost:3306/bienestar";
-    private static final String url = "jdbc:mysql://localhost:3306/beitechDB?zeroDateTimeBehavior=convertToNull";
+    private static final String url = "jdbc:mysql://localhost:3306/beitech?zeroDateTimeBehavior=convertToNull";
     private static Connection conn;
 
     protected abstract E toEntity(ResultSet rs )throws Exception;
@@ -45,7 +45,7 @@ public abstract class CrudDAO<E extends Entity> {
         }
     }
 
-    private boolean cerrarConeccion(){
+    private boolean cerrarConexion(){
         System.out.println("cerrarConeccion");
         try {
             conn.close();
