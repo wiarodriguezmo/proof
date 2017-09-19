@@ -4,14 +4,21 @@
  * and open the template in the editor.
  */
 package Presentation;
-
+import java.util.Date;
 import BusinessLogic.OrderHandler;
+import DataAccess.DAO.OrderDAO;
+import DataAccess.Entity.Orde;
+import com.google.gson.Gson;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONArray;
@@ -47,6 +54,19 @@ public class OrderReceiver extends Application{
         
         OrderHandler orderHandler = new OrderHandler(customerId, products);
         orderHandler.createOrder();
-        
+    }
+    
+    @GET
+    @Path("/list")
+    public String listByDate(@QueryParam("customerId") String customerId, @QueryParam("before") Long before, @QueryParam("after") Long after)throws Exception {
+        OrderDAO orderDAO = new OrderDAO(); 
+        Date beforeDate = Date.from(Instant.ofEpochSecond(before));
+        Date afterDate = Date.from(Instant.ofEpochSecond(after));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String beforeQ = sdf.format(beforeDate);
+        String afterQ = sdf.format(afterDate);
+        ArrayList<Orde> orders = orderDAO.getAllOrders(customerId, beforeQ, afterQ);
+        return new Gson().toJson(orders);  
     }
 }
+

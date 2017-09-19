@@ -41,6 +41,8 @@ public class Orde implements Serializable {
     private Integer orderId;
     @Column(name = "delivery_address")
     private Integer deliveryAddress;
+    @Column(name = "dateOrder")
+    private String dateOrder;
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     @ManyToOne
     private Customer customerId;
@@ -65,6 +67,9 @@ public class Orde implements Serializable {
 
     public void setDeliveryAddress(Integer deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+    public void setDateOrder(String date) {
+        this.dateOrder = date;
     }
 
     public Customer getCustomerId() {

@@ -8,6 +8,7 @@ package DataAccess.DAO;
 import DataAccess.Entity.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,6 +29,20 @@ public class CustomerDAO extends CrudDAO<Customer> {
         } catch (SQLException e) {
                 System.out.println("CustomerDAO.getByID: " + e.getMessage());
                 return new Customer();
+        }
+    }
+    
+    public ArrayList<Customer> getAllCustomers() throws Exception {
+        ArrayList<Customer> customers = new ArrayList<>();
+        ResultSet rs = CrudDAO.query("SELECT * FROM customer", new String[]{});
+        try {
+                while (rs.next()) { 
+                    customers.add(getByID(Integer.toString(rs.getInt("customer_id"))));
+                }
+                return customers;
+        } catch (SQLException e) {
+                System.out.println("CustomerDAO.getByID: " + e.getMessage());
+                return new ArrayList<Customer>();
         }
     }
     

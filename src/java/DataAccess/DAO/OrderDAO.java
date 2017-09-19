@@ -5,10 +5,10 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.Customer;
 import DataAccess.Entity.Orde;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -57,6 +57,23 @@ public class OrderDAO {
         } catch (SQLException e) {
                 System.out.println("CustomerDAO.getByID: " + e.getMessage());
                 return 0;
+        }
+    }
+    
+    public ArrayList<Orde> getAllOrders(String ID, String before, String after) throws Exception {
+        ArrayList<Orde> orders = new ArrayList<>();
+        ResultSet rs = CrudDAO.query("SELECT * FROM orde WHERE customer_id =? AND dateOrder >? AND dateOrder <?", new String[]{ID, before, after});
+        try {
+                while (rs.next()) { 
+                    Orde eachOrder = new Orde(rs.getInt("order_id"));
+                    eachOrder.setDeliveryAddress(rs.getInt("delivery_address"));
+                    eachOrder.setDateOrder(rs.getString("dateOrder"));
+                    orders.add(eachOrder);
+                }
+                return orders;
+        } catch (SQLException e) {
+                System.out.println("CustomerDAO.getByID: " + e.getMessage());
+                return new ArrayList<Orde>();
         }
     }
 }

@@ -12,26 +12,7 @@ import DataAccess.DAO.ProductDAO;
 import DataAccess.Entity.Customer;
 import DataAccess.Entity.Orde;
 import DataAccess.Entity.Product;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-import javax.validation.Valid;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import java.util.ArrayList;;
 
 /**
  *
@@ -65,9 +46,9 @@ public class OrderHandler  {
             
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
             ProductDAO productDAO = new ProductDAO();
-            Product product = productDAO.getByID(Integer.toString(orderId));
             
             for(Integer temp : products){
+                Product product = productDAO.getByID(Integer.toString(temp));
                 System.out.println(orderDetailDAO.createOrderDetail(orderId, temp, product));
             }
         }
@@ -84,42 +65,6 @@ public class OrderHandler  {
         return newProducts;
     }
     
-    
-    /*
-    public Customer getCustomerFromId(Integer customerId){
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("customID");
-        
-        EntityManager em = emf.createEntityManager();
-        TypedQuery consultaCustomer = em.createNamedQuery("seleccionarAlumnosNombre", Alumno.class);
-consultaAlumnos.setParameter("nombre", "miguel");
-List<Alumno> lista= consultaAlumnos.getResultList();
-        
-        System.out.println("B " + customerId);
-        Customer customer = new Customer();
-        customer.findByCustomerId(1);
-        System.out.println(em.createNamedQuery("findByCustomerId")
-        .setParameter("customerId", 1)
-        .getResultList());
-        //System.out.println("AA " + customer.hashCode());
-        return null;
-    }
-    public String createOrder(@Valid RequestObj requestObj){
-        if(invalidProductsOnOrder(requestObj))return "NO";
-        Order order = new Order();
-        System.out.println(requestObj);
-        return "SI";
-    }
-    */
-    
-    @GET
-    @Path("/s")
-    public String proof(){
-        System.out.println("siii");
-        return "sii";
-        
-    }
-
     private static class AddCustomersRequest {
 
         public AddCustomersRequest() {

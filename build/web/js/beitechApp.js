@@ -39,6 +39,27 @@ app.controller('beitechCtrl', function ($http, $q) {
 
     return d.promise;
     };
-
-    vm.setProducts();
+    
+    $http({
+        method: 'GET',
+        url: 'webresources/customers/list',
+        headers: {'Content-Type': 'text/plain'}
+      }).then(function successCallback(response) {
+          vm.people = response.data;
+        }, function errorCallback(response) {
+          console.log(response)
+    });
+    
+    vm.getList = function(){
+        var uri = "?customerId=" + vm.personSelected.customerId + "&before=" + vm.before.getTime()/1000 + "&after=" + vm.after.getTime()/1000;
+        $http({
+            method: 'GET',
+            url: 'webresources/orders/list' + uri,
+            headers: {'Content-Type': 'text/plain'}
+          }).then(function successCallback(response) {
+              vm.orders = response.data;
+            }, function errorCallback(response) {
+              console.log(response)
+        });
+    }
 });

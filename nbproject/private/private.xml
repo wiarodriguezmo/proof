@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/Entity/Product.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/DAO/CrudDAO.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/BusinessLogic/OrderHandler.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/DAO/CustomerDAO.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/DAO/ProductDAO.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/Entity/Customer.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/web/js/beitechApp.js</file>
+            <file>file:/home/awake/BEITECH/project/proof/web/index.html</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/DAO/OrderDetailDAO.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/Entity/OrderDetail.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/DAO/OrderDAO.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/DataAccess/Entity/Orde.java</file>
+            <file>file:/home/awake/BEITECH/project/proof/src/java/Presentation/OrderReceiver.java</file>
+        </group>
+    </open-files>
+</project-private>

@@ -1,69 +1,108 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html ng-app="beitech">
     <head>
-        <title>Test manual --> create a order</title>
+        <title>Test manual --> create a order and list the orders</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <!-- angular & ui-select -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
         <script type="text/javascript" src="http://angular-ui.github.io/ui-select/dist/select.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
-        
+
         <!-- app -->
         <script type="text/javascript" src="js/beitechApp.js"></script>
-        
-      
+
+
         <!-- CSS -->
         <link rel="stylesheet" href="http://angular-ui.github.io/ui-select/dist/select.css">
-        
+
         <!-- themes -->
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
-    
+
         <style>
             body {
                 padding: 15px;
             }
+            td {
+                 border: 1px solid black;
+            }
         </style>
     </head>
-    <body>
-        <h1>Crear una orden</h1>
-        
-        <form ng-controller="beitechCtrl as ctrl">
-            Customer Id <input type="number" ng-model="ctrl.id" name="id"/><br/>
-            <!--
-            Order Number: <input ng-model="ctrl.id" type="text" name="id"/><br/>
-            -->
-            <div class="row">
-                <div class="col-sm-12 col-xs-12">
-                        <div class="form-group">
-                                <label for="specialties" class="control-label">PRODUCTOS</label>
-                                 <ui-select multiple 
-                                            ng-model="ctrl.selectedProducts" 
-                                            theme="bootstrap"
-                                            close-on-select="false" 
-                                            style="width: 800px;" 
-                                            title="Choose a product" 
-                                            name="products"
-                                            remove-selected="false">
-                                <ui-select-match placeholder="Select product...">{{$item.name}}</ui-select-match>
-                                <ui-select-choices repeat="product in ctrl.products">
-                                  <div ng-bind-html="product.name | highlight: $select.search"></div>
-                                  <small>
-                                      Name: {{product.name}}
-                                  </small>
-                                </ui-select-choices>
-                              </ui-select>
+    <body ng-controller="beitechCtrl as ctrl">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="row">
+                    <h1>Listas órdenes de un usuario</h1>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12">
+                          <label for="customer" class="control-label">Customer</label>
+                          <ui-select name="customer"
+                            ng-model="ctrl.personSelected"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="Escoja">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="person in ctrl.people">
+                              <div>{{person.name}}</div>
+                            </ui-select-choices>
+                          </ui-select>
                         </div>
+                        
+                        <div class="col-sm-4 col-xs-12">
+                            <label for="before" class="control-label">Before</label><br>
+                            <input type="date" name="before" ng-model="ctrl.before">
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <label for="after" class="control-label">After</label><br>
+                            <input type="date" name="after" ng-model="ctrl.after">
+                        </div>
+                    </div>
+                    <input type="submit" value="Create Order" ng-click="ctrl.getList()"/>
                 </div>
             </div>
-            
-            <input type="submit" value="Create Order" ng-click="ctrl.setProducts()"/>
-        </form>
+            <div class="col-sm-6 col-xs-12">
+                <div class="row">
+                    <h1>Crear una orden</h1>
+                    <form>
+                        Customer Id <input type="number" ng-model="ctrl.id" name="id"/><br/>
+                        Delivery Address: <input ng-model="ctrl.delivery_address" type="text" name="delivery_address"/><br/>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="products" class="control-label">PRODUCTOS</label>
+                                <ui-select multiple 
+                                           ng-model="ctrl.selectedProducts" 
+                                           theme="bootstrap"
+                                           close-on-select="false"  
+                                           title="Choose a product" 
+                                           name="products"
+                                           remove-selected="false">
+                                    <ui-select-match placeholder="Select product...">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="product in ctrl.products">
+                                        <div ng-bind-html="product.name | highlight: $select.search"></div>
+                                        <small>
+                                            Name: {{product.name}}
+                                        </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <input type="submit" value="Create Order" ng-click="ctrl.setProducts()"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <table>
+            <thead>
+            <td># order</td>
+            <td>Delivery Address</td>
+            <td>Date</td>
+            </thead>
+            <tr ng-if="ctrl.orders.length>0" ng-repeat="order in ctrl.orders">
+                <td>{{order.orderId}}</td>
+                <td>{{order.deliveryAddress}}</td>
+                <td>{{order.dateOrder}}</td>
+            </tr>
+        </table>
+
     </body>
 </html>
